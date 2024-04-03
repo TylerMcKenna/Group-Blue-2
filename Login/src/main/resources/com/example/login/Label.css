@@ -1,0 +1,40 @@
+.label {
+    -fx-text-fill: #72A0C1;
+}
+
+.password-field, .text-field {
+    -fx-border-style: solid;
+    -fx-border-width: 0.75;
+    -fx-border-radius: 3;
+    -fx-border-color: #72A0C1;
+    -fx-background-color: AliceBlue;
+}
+
+.button {
+    -fx-background-color: #72A0C1;
+    -fx-background-radius: 20;
+
+}
+
+#btnSigninScreen, #btnSignupScreen {
+    -fx-text-fill: darkgrey;
+    -fx-background-color: lightgrey;
+    -fx-background-radius: 0;
+}
+
+#btnSigninScreen:focused, #btnSignupScreen:focused {
+    -fx-text-fill: grey;
+    -fx-background-color: white;
+    /* need to add border on bottom */
+}
+
+#anchorPane {
+    -fx-background-color: white;
+}
+/*
+Want to animate this
+.button:hover {
+    -fx-background-color: blue;
+    -fx-animated: example;
+}
+*/

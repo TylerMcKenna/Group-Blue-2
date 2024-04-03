@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" stylesheets="@Label.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.HelloController">
+   <children>
+      <Group fx:id="groupSignUp" layoutX="84.0" layoutY="79.0">
+         <children>
+            <PasswordField fx:id="passFieldSU" layoutX="40.0" layoutY="217.0" promptText="Password" stylesheets="@Label.css" />
+            <TextField fx:id="txtUsernameSU" layoutX="40.0" layoutY="160.0" promptText="Username" stylesheets="@Label.css" />
+            <Button layoutX="65.0" layoutY="270.0" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="38.0" prefWidth="100.0" stylesheets="@Label.css" text="Create Account">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/key.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="3.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/user.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="38.0" stylesheets="@Label.css" text="Sign Up">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+            <TextField fx:id="txtEmailSU" layoutX="40.0" layoutY="103.0" promptText="Email" stylesheets="@Label.css" />
+         </children>
+      </Group>
+      <Group fx:id="groupSignIn" layoutX="84.0" layoutY="79.0">
+         <children>
+            <PasswordField fx:id="passFieldSI" layoutX="40.0" layoutY="217.0" promptText="Password" stylesheets="@Label.css" />
+            <TextField fx:id="txtEmailSI" layoutX="40.0" layoutY="160.0" promptText="Email" stylesheets="@Label.css" />
+            <Button layoutX="65.0" layoutY="270.0" mnemonicParsing="false" onAction="#signInPressed" prefHeight="38.0" prefWidth="100.0" stylesheets="@Label.css" text="Login">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/key.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="32.0" fitWidth="32.0" layoutX="3.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../Images/user.png" />
+               </image>
+            </ImageView>
+            <Label layoutX="40.0" stylesheets="@Label.css" text="Sign In">
+               <font>
+                  <Font size="45.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblWelcome" layoutX="10.0" layoutY="100.0" prefHeight="25.0" prefWidth="207.0" text="Yo" textAlignment="CENTER" visible="false">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </children>
+      </Group>
+      <Button fx:id="btnSigninScreen" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignIn" prefHeight="66.0" prefWidth="200.0" text="Sign In" />
+      <Button fx:id="btnSignupScreen" layoutX="199.0" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignUp" prefHeight="66.0" prefWidth="200.0" text="Sign Up" />
+   </children>
+</AnchorPane>
