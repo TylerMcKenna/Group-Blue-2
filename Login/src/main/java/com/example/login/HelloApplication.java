@@ -20,10 +20,11 @@ public class HelloApplication extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
-        ReadWrite.addUser("Jimmy", "jimmy01@gmail.com", 10285722, "jim100", true);
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
+        ReadWrite.addUser("Jimmy", "jimmy01@gmail.com", "10285722", "jim100", true);
+        ReadWrite.addUser("Taier", "taiguy02@gmail.com", "01826172", "tai100", false);
         launch();
     }
 }
