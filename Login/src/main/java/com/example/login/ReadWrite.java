@@ -45,4 +45,80 @@ public class ReadWrite {
         fw.write(userList);
         fw.close();
     }
+
+    public static void addCourse(String courseName, String CRN) throws IOException {
+        // Creates sets courseList.xml to the File courseListFile and creates courseList.xml if it doesn't exist
+        // ending tag so we can subtract correct value later
+        String endingTag = "</courseList>";
+        File courseListFile = new File("courseList.xml");
+
+        boolean fileCreated = courseListFile.createNewFile();
+
+        if (fileCreated) {
+            FileWriter fw = new FileWriter(courseListFile);
+            System.out.println("File \"" + courseListFile.getName() + "\" created.\n");
+            fw.write("<courseList>\n" + endingTag);
+            fw.close();
+        } else {
+            System.out.println("File already exists.\n");
+        }
+
+        String courseList = new String(Files.readAllBytes(Paths.get(courseListFile.getPath())), StandardCharsets.UTF_8);
+        System.out.println(courseList + "cList printed #3");
+
+        // truncates file!
+        FileWriter fw = new FileWriter(courseListFile);
+
+        String newCourse =
+                "    <course>\n" +
+                        "        <courseName>" + courseName + "</courseName>\n" +
+                        "        <CRN>" + CRN + "</CRN>\n" +
+                        "    </course>";
+
+
+        courseList = courseList.substring(0, courseList.length() - endingTag.length()) + newCourse + "\n" + courseList.substring(courseList.length() - endingTag.length());
+        System.out.println(courseList);
+
+        fw.write(courseList);
+        fw.close();
+    }
+
+    public static void addUserCourse(String bNumber, String CRN) throws IOException {
+        // Creates sets courseList.xml to the File courseListFile and creates courseList.xml if it doesn't exist
+        // ending tag so we can subtract correct value later
+        String endingTag = "</userCourse>";
+        File userCourseFile = new File("userCourse.xml");
+
+        boolean fileCreated = userCourseFile.createNewFile();
+
+        if (fileCreated) {
+            FileWriter fw = new FileWriter(userCourseFile);
+            System.out.println("File \"" + userCourseFile.getName() + "\" created.\n");
+            fw.write("<userCourse>\n" + endingTag);
+            fw.close();
+        } else {
+            System.out.println("File already exists.\n");
+        }
+
+        String userCourse = new String(Files.readAllBytes(Paths.get(userCourseFile.getPath())), StandardCharsets.UTF_8);
+        System.out.println(userCourse + "cList printed #3");
+
+        // truncates file!
+        FileWriter fw = new FileWriter(userCourseFile);
+
+        String newUserCourse =
+                "    <userCourse>\n" +
+                        "        <courseName>" + bNumber + "</courseName>\n" +
+                        "        <CRN>" + CRN + "</CRN>\n" +
+                        "    </userCourse>";
+
+
+        userCourse = userCourse.substring(0, userCourse.length() - endingTag.length()) + newUserCourse + "\n" + userCourse.substring(userCourse.length() - endingTag.length());
+        System.out.println(userCourse);
+
+        fw.write(userCourse);
+        fw.close();
+    }
+
+    
 }

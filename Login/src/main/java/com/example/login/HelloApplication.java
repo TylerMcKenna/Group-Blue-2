@@ -23,8 +23,11 @@ public class HelloApplication extends Application {
     }
 
     public static void main(String[] args) throws IOException {
-        ReadWrite.addUser("Jimmy", "jimmy01@gmail.com", "10285722", "jim100", true);
-        ReadWrite.addUser("Taier", "taiguy02@gmail.com", "01826172", "tai100", false);
+        ReadWrite.addCourse("Business Ethics", "000112");
+        ReadWrite.addCourse("Programming 2", "927461");
+        ReadWrite.addUser("tyler", "tmckenna@my.okcu.edu", "00116151", "tyler100", false);
+        ReadWrite.addUser("jeff", "jmaxwell@okcu.edu", "22003243", "jeff100", true);
+        ReadWrite.addUserCourse("22003242", "000112");
         launch();
     }
 }
