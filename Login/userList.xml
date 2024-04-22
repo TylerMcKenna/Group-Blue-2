@@ -1,15 +1,15 @@
 <userList>
     <user>
+        <bNumber>00116151</bNumber>
         <userName>tyler</userName>
         <email>tmckenna@my.okcu.edu</email>
-        <bNumber>00116151</bNumber>
         <password>tyler100</password>
         <isProfessor>false</isProfessor>
     </user>
     <user>
+        <bNumber>22003242</bNumber>
         <userName>jeff</userName>
         <email>jmaxwell@okcu.edu</email>
-        <bNumber>22003242</bNumber>
         <password>jeff100</password>
         <isProfessor>true</isProfessor>
     </user>

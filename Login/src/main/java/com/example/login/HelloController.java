@@ -1,12 +1,6 @@
 package com.example.login;
 
-import com.fasterxml.jackson.annotation.JsonAutoDetect;
-import com.fasterxml.jackson.annotation.PropertyAccessor;
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.JsonToken;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -19,21 +13,16 @@ import javafx.scene.layout.AnchorPane;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javax.crypto.Cipher;
-import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 public class HelloController {
     private static final String UNICODE_FORMAT = "UTF-8";
-    private static ArrayList<User> userList = new ArrayList<User>();
+    private static ArrayList<User2> userList = new ArrayList<User2>();
     @FXML
     private Label lblWelcome;
 
@@ -73,11 +62,11 @@ public class HelloController {
 
     // On sign in pressed, loads the JSON user file and tests if the entered information matches an account
     public void signInPressed(ActionEvent actionEvent) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException {
-        User[] users = null;
+        User2[] users = null;
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             String json = "users.json".toString();
-            users = objectMapper.readValue(new File("users.json"), User[].class);
+            users = objectMapper.readValue(new File("users.json"), User2[].class);
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -86,10 +75,10 @@ public class HelloController {
 
         for (int i = 0; i < users.length; i++) {
             Cipher cipher = Cipher.getInstance("AES");
-            if (Objects.equals(User.decryptString(users[i].getEncryptedEmail(), users[i].getKey(), cipher), txtEmailSI.getText())) {
-                User temp = new User(users[i].getKey(), "noName", passFieldSI.getText(), txtEmailSI.getText(), users[i].getSalt());
+            if (Objects.equals(User2.decryptString(users[i].getEncryptedEmail(), users[i].getKey(), cipher), txtEmailSI.getText())) {
+                User2 temp = new User2(users[i].getKey(), "noName", passFieldSI.getText(), txtEmailSI.getText(), users[i].getSalt());
                 if (Objects.equals(temp.getHashedPassword(), users[i].getHashedPassword())) {
-                    lblWelcome.setText("Login Successful, hello " + User.decryptString(users[i].getEncryptedUsername(), users[i].getKey(), cipher) + "!");
+                    lblWelcome.setText("Login Successful, hello " + User2.decryptString(users[i].getEncryptedUsername(), users[i].getKey(), cipher) + "!");
                 } else {
                     lblWelcome.setText("Login failed.");
                 }
@@ -101,7 +90,7 @@ public class HelloController {
     // https://stackoverflow.com/questions/32268733/using-jackson-to-manually-parse-json
     // On sign up pressed adds user to json list from UI fields
     public void signUpPressed(ActionEvent actionEvent) throws IOException {
-        userList.add(new User(txtUsernameSU.getText(), passFieldSU.getText(), txtEmailSU.getText()));
+        userList.add(new User2(txtUsernameSU.getText(), passFieldSU.getText(), txtEmailSU.getText()));
 
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.enable(SerializationFeature.INDENT_OUTPUT);

@@ -5,19 +5,19 @@ import java.util.ArrayList;
 public class Course {
 
     private String courseName;
-    private int CRN;
+    private String CRN;
 
-    Course(String courseName, int CRN){
+    Course(String courseName, String CRN){
 
         this.courseName = courseName;
         this.CRN = CRN;
     }
 
-    String getCoursename(){
+    public String getCourseName(){
         return courseName;
     }
 
-    int getCRN(){
+    public String getCRN(){
         return CRN;
     }
 

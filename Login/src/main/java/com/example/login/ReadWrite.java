@@ -30,12 +30,12 @@ public class ReadWrite {
 
         String newUser =
                 "    <user>\n" +
-                "        <userName>" + username + "</userName>\n" +
-                "        <email>" + email + "</email>\n" +
-                "        <bNumber>" + bNumber + "</bNumber>\n" +
-                "        <password>" + password + "</password>\n" +
-                "        <isProfessor>" + isProf + "</isProfessor>\n" +
-                "    </user>";
+                        "        <bNumber>" + bNumber + "</bNumber>\n" +
+                        "        <userName>" + username + "</userName>\n" +
+                        "        <email>" + email + "</email>\n" +
+                        "        <password>" + password + "</password>\n" +
+                        "        <isProfessor>" + isProf + "</isProfessor>\n" +
+                        "    </user>";
 
 
         userList = userList.substring(0, userList.length() - 11) + newUser + "\n" + userList.substring(userList.length() - 11);
@@ -113,12 +113,6 @@ public class ReadWrite {
     }
 
 
-
-
-
-
-
-
     // Returns a list of every class a user has, searching by B#
     public static ArrayList<UserCourse> getUserClasses(String bNumber) throws IOException {
         File userCourseFile = new File("UserCourse.xml");
@@ -127,7 +121,7 @@ public class ReadWrite {
         System.out.println("UserCourse string list: " + userCourse);
         System.out.println("List length: " + userCourse.length());
 
-        ArrayList<Integer> bNumberLocationList = locateStrings(userCourse,bNumber);
+        ArrayList<Integer> bNumberLocationList = locateStrings(userCourse, bNumber);
 
         System.out.println("bNumberLocationList: " + bNumberLocationList);
 
@@ -138,24 +132,49 @@ public class ReadWrite {
         return userCourseList;
     }
 
-/*
+
     // Returns a list of every user in a class, searching by CRN
-    public static ArrayList<UserCourse> getClassUsers(String CRN) throws IOException {
+    public static ArrayList<User> getClassUsers(String CRN) throws IOException {
+        // userCourse file
         File userCourseFile = new File("UserCourse.xml");
         String userCourse = new String(Files.readAllBytes(Paths.get(userCourseFile.getPath())), StandardCharsets.UTF_8);
 
-        ArrayList<Integer> crnLocationList = locateStrings(userCourse,CRN);
+        // gets location of crn in list
+        ArrayList<Integer> crnLocationList = locateStrings(userCourse, CRN);
 
+        // gets usercourse element of classes found
         ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
         for (int i = 0; i < crnLocationList.size(); i++) {
-            userCourseList.add(ReadWrite.getUserCourseElement(crnLocationList.get(i)));
+            // Subtracting 57 takes us to the start tag of the whole UserCourse element, which is what getUserCourseElement demands
+            userCourseList.add(ReadWrite.getUserCourseElement(crnLocationList.get(i) - 57));
         }
-        return userCourseList;
+
+        // userFile
+        File userFile = new File("userList.xml");
+        String users = new String(Files.readAllBytes(Paths.get(userFile.getPath())), StandardCharsets.UTF_8);
+        ArrayList<User> userList = new ArrayList<User>();
+
+        //Assumes xml is always in a certain order!
+        for (int i = 0; i < userCourseList.size(); i++) {
+            // index of current users bNum
+            int indexOfUser = users.indexOf(userCourseList.get(i).getbNumber());
+
+            String bNumber= userCourseList.get(i).getbNumber();
+            String username = getValBetweenTags("<userName>","</userName>",users,indexOfUser);
+            String email = getValBetweenTags("<email>","</email>",users,indexOfUser);
+            String password = getValBetweenTags("<password>","</password>",users,indexOfUser);
+            boolean isProfessor = Boolean.getBoolean(getValBetweenTags("<isProfessor>","</isProfessor>",users,indexOfUser));
+
+            userList.add(new User(bNumber,username,password,email,isProfessor));
+        }
+
+        return userList;
     }
-*/
+
+
     // Finds all instances of the specified "locateString" within the "searchString" and returns their indexes
     // In my use "searchString" should be my entire XML file, and locateString should be the XML element content I want to find
-    // Should be private!!!!!!!!!!!!
+    // W O R K S
     private static ArrayList<Integer> locateStrings(String searchString, String locateString) {
         int currentIndex = 0;
         ArrayList<Integer> indexList = new ArrayList<Integer>();
@@ -170,15 +189,16 @@ public class ReadWrite {
 
         if (indexList.size() != 0) {
             return indexList;
-        }
-        else {
+        } else {
             System.out.println("found no instances of the specified string in the search string");
             return null;
         }
     }
 
     // Should be passed the index where the UserCourse start tag begins, <userCourseList> will parse the xml element based off of this
-    // If not passed this index, the code will not function as planned
+
+    // W O R K S assuming actually passed correct index (where the UserCourse start tag begins)
+
     // Functionality could definitely be turned more abstract; Perhaps one method to get users, courses, and userCourses.
     private static UserCourse getUserCourseElement(Integer index) throws IOException {
         String endingTag = "</UserCourse>";
@@ -189,7 +209,6 @@ public class ReadWrite {
         // Gets userCourseElement
         Integer indexEnd = userCourseList.indexOf(endingTag, index);
 
-        System.out.println("indexEnd: " + indexEnd);
 
         // endingTag.length - 1 = startTag.length
         String userCourseElement = null;
@@ -199,30 +218,54 @@ public class ReadWrite {
             return null;
         }
 
-        System.out.println(userCourseElement);
-
         int indexOfStartTag = userCourseElement.indexOf("<bNumber>");
-
-        System.out.println("indexofstarttag: " + indexOfStartTag);
 
         if (indexOfStartTag == -1) {
             return null;
         }
-        int indexOfEndTag =  userCourseElement.indexOf("</bNumber>");
+        int indexOfEndTag = userCourseElement.indexOf("</bNumber>");
         String bNumber = userCourseElement.substring(indexOfStartTag + 9, indexOfEndTag);
-
-        System.out.println("bNumber: " + bNumber);
 
         indexOfStartTag = userCourseElement.indexOf("<CRN>");
         indexOfEndTag = userCourseElement.indexOf("</CRN>");
         String CRN = userCourseElement.substring(indexOfStartTag + 5, indexOfEndTag);
 
-        System.out.println("crn: " + CRN);
+        return new UserCourse(bNumber, CRN);
+    }
 
-        return new UserCourse(bNumber,CRN);
+    public static String getValBetweenTags(String tag, String endTag, String fileToLocateVal, int fromIndex) {
+        int indexOfTag = fileToLocateVal.indexOf(tag, fromIndex);;
+        int indexOfEndTag = fileToLocateVal.indexOf(endTag, fromIndex);
+
+        if (indexOfTag == -1 || indexOfEndTag == -1) {
+            System.out.println("could not find value between tags \"" + tag + " and " + endTag + "\"");
+            System.exit(1);
+        }
+
+        return fileToLocateVal.substring(indexOfTag + tag.length(), indexOfEndTag);
     }
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// base database
 /*
         ReadWrite.addCourse("Business Ethics", "000112");
         ReadWrite.addCourse("Programming 2", "927461");
