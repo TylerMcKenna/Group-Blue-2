@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -24,13 +25,16 @@ public class HelloController {
     private static final String UNICODE_FORMAT = "UTF-8";
     private static ArrayList<User2> userList = new ArrayList<User2>();
     @FXML
-    private Label lblWelcome;
+    private Label lblWelcome, lblLoginFailed;
 
     @FXML
     private PasswordField passFieldSU, passFieldSI;
 
     @FXML
-    private TextField txtUsernameSU, txtEmailSU, txtEmailSI;
+    private TextField txtUsernameSU, txtEmailSU, txtEmailSI, txtBNum;
+
+    @FXML
+    private CheckBox chkProfessor;
 
     @FXML
     private AnchorPane anchorPane;
@@ -60,41 +64,17 @@ public class HelloController {
         groupSignUp.setVisible(true);
     }
 
-    // On sign in pressed, loads the JSON user file and tests if the entered information matches an account
-    public void signInPressed(ActionEvent actionEvent) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException {
-        User2[] users = null;
-        ObjectMapper objectMapper = new ObjectMapper();
-        try {
-            String json = "users.json".toString();
-            users = objectMapper.readValue(new File("users.json"), User2[].class);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
-        for (int i = 0; i < users.length; i++) {
-            Cipher cipher = Cipher.getInstance("AES");
-            if (Objects.equals(User2.decryptString(users[i].getEncryptedEmail(), users[i].getKey(), cipher), txtEmailSI.getText())) {
-                User2 temp = new User2(users[i].getKey(), "noName", passFieldSI.getText(), txtEmailSI.getText(), users[i].getSalt());
-                if (Objects.equals(temp.getHashedPassword(), users[i].getHashedPassword())) {
-                    lblWelcome.setText("Login Successful, hello " + User2.decryptString(users[i].getEncryptedUsername(), users[i].getKey(), cipher) + "!");
-                } else {
-                    lblWelcome.setText("Login failed.");
-                }
-                lblWelcome.setVisible(true);
-            }
+    public void signInPressed(ActionEvent actionEvent) throws IOException {
+        User currentUser = ReadWrite.checkLogin(txtEmailSI.getText(), passFieldSI.getText());
+        if (currentUser == null) {
+            lblLoginFailed.setVisible(true);
+        } else {
+            lblLoginFailed.setVisible(false);
+            //change scene and pass currentUser
         }
     }
 
-    // https://stackoverflow.com/questions/32268733/using-jackson-to-manually-parse-json
-    // On sign up pressed adds user to json list from UI fields
     public void signUpPressed(ActionEvent actionEvent) throws IOException {
-        userList.add(new User2(txtUsernameSU.getText(), passFieldSU.getText(), txtEmailSU.getText()));
-
-        ObjectMapper objectMapper = new ObjectMapper();
-        objectMapper.enable(SerializationFeature.INDENT_OUTPUT);
-
-        objectMapper.writeValue(new File("users.json"), userList);
+        ReadWrite.addUser(txtUsernameSU.getText(), txtEmailSU.getText(), txtBNum.getText(), passFieldSU.getText(), chkProfessor.isPressed());
     }
 }

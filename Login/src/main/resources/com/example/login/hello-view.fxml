@@ -3,6 +3,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -13,15 +14,10 @@
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" stylesheets="@Label.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.HelloController">
    <children>
-      <Group fx:id="groupSignUp" layoutX="84.0" layoutY="79.0">
+      <Group fx:id="groupSignUp" layoutX="84.0" layoutY="79.0" visible="false">
          <children>
             <PasswordField fx:id="passFieldSU" layoutX="40.0" layoutY="217.0" promptText="Password" stylesheets="@Label.css" />
             <TextField fx:id="txtUsernameSU" layoutX="40.0" layoutY="160.0" promptText="Username" stylesheets="@Label.css" />
-            <Button layoutX="65.0" layoutY="270.0" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="38.0" prefWidth="100.0" stylesheets="@Label.css" text="Create Account">
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
             <ImageView fitHeight="27.0" fitWidth="27.0" layoutX="10.0" layoutY="217.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../Images/key.png" />
@@ -38,6 +34,13 @@
                </font>
             </Label>
             <TextField fx:id="txtEmailSU" layoutX="40.0" layoutY="103.0" promptText="Email" stylesheets="@Label.css" />
+            <CheckBox fx:id="chkProfessor" layoutX="61.0" layoutY="76.0" mnemonicParsing="false" prefHeight="17.0" prefWidth="91.0" text="Professor" />
+            <Button layoutX="50.0" layoutY="325.0" mnemonicParsing="false" onAction="#signUpPressed" prefHeight="38.0" prefWidth="100.0" stylesheets="@Label.css" text="Create Account">
+               <cursor>
+                  <Cursor fx:constant="HAND" />
+               </cursor>
+            </Button>
+            <TextField fx:id="txtBNum" layoutX="40.0" layoutY="275.0" promptText="B Number" stylesheets="@Label.css" />
          </children>
       </Group>
       <Group fx:id="groupSignIn" layoutX="84.0" layoutY="79.0">
@@ -69,6 +72,7 @@
                   <Font size="16.0" />
                </font>
             </Label>
+            <Label fx:id="lblLoginFailed" layoutX="60.0" layoutY="113.0" prefHeight="36.0" prefWidth="74.0" text="Login Failed!" visible="false" />
          </children>
       </Group>
       <Button fx:id="btnSigninScreen" layoutY="1.0" mnemonicParsing="false" onAction="#loadSignIn" prefHeight="66.0" prefWidth="200.0" text="Sign In" />

@@ -244,6 +244,29 @@ public class ReadWrite {
 
         return fileToLocateVal.substring(indexOfTag + tag.length(), indexOfEndTag);
     }
+
+    // Returns user if login successful, returns null otherwise
+    public static User checkLogin(String email, String password) throws IOException {
+        File userFile = new File("userList.xml");
+        String users = new String(Files.readAllBytes(Paths.get(userFile.getPath())), StandardCharsets.UTF_8);
+        ArrayList<User> userList = new ArrayList<User>();
+
+        int indexOfEmail = users.indexOf(email);
+        if (indexOfEmail == -1) return null;
+        if (!users.substring(indexOfEmail-7, indexOfEmail).equals("<email>")) return null;
+
+        int indexOfUserStart = users.lastIndexOf("<user>", indexOfEmail);
+
+        String bNumber = getValBetweenTags("<bNumber>","</bNumber>",users,indexOfUserStart);
+        String username = getValBetweenTags("<userName>","</userName>",users,indexOfUserStart);
+        String userEmail = getValBetweenTags("<email>","</email>",users,indexOfUserStart);
+        String userPassword = getValBetweenTags("<password>","</password>",users,indexOfUserStart);
+        boolean isProfessor = Boolean.getBoolean(getValBetweenTags("<isProfessor>","</isProfessor>",users,indexOfUserStart));
+
+        if (!userPassword.equals(password)) return null;
+
+        return new User(bNumber,username,password,email,isProfessor);
+    }
 }
 
 
