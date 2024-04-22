@@ -6,7 +6,6 @@ public class Course {
 
     private String courseName;
     private int CRN;
-    ArrayList<String> classlist = new ArrayList<>();
 
     Course(String courseName, int CRN){
 
@@ -20,10 +19,6 @@ public class Course {
 
     int getCRN(){
         return CRN;
-    }
-
-    void addStudent(String name){
-        classlist.add(name);
     }
 
 }
