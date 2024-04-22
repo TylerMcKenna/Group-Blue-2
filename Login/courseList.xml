@@ -1,0 +1,10 @@
+<courseList>
+    <course>
+        <courseName>Business Ethics</courseName>
+        <CRN>000112</CRN>
+    </course>
+    <course>
+        <courseName>Programming 2</courseName>
+        <CRN>927461</CRN>
+    </course>
+</courseList>
