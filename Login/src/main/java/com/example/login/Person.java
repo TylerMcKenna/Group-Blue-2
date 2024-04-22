@@ -45,7 +45,4 @@ package com.example.login;
             isProfessor = professor;
         }
     }
-
-
-}
 // string B number
