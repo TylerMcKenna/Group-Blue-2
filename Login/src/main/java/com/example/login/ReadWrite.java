@@ -261,7 +261,7 @@ public class ReadWrite {
         String username = getValBetweenTags("<userName>","</userName>",users,indexOfUserStart);
         String userEmail = getValBetweenTags("<email>","</email>",users,indexOfUserStart);
         String userPassword = getValBetweenTags("<password>","</password>",users,indexOfUserStart);
-        boolean isProfessor = Boolean.getBoolean(getValBetweenTags("<isProfessor>","</isProfessor>",users,indexOfUserStart));
+        boolean isProfessor = Boolean.parseBoolean(getValBetweenTags("<isProfessor>","</isProfessor>",users,indexOfUserStart));
 
         if (!userPassword.equals(password)) return null;
 
