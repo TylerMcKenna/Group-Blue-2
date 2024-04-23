@@ -17,6 +17,14 @@ public class Course {
         return courseName;
     }
 
+    @Override
+    public String toString() {
+        return "Course{" +
+                "courseName='" + courseName + '\'' +
+                ", CRN='" + CRN + '\'' +
+                '}';
+    }
+
     public String getCRN(){
         return CRN;
     }

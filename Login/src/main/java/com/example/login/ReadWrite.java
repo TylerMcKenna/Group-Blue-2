@@ -67,8 +67,8 @@ public class ReadWrite {
 
         String newCourse =
                 "    <course>\n" +
-                        "        <courseName>" + courseName + "</courseName>\n" +
                         "        <CRN>" + CRN + "</CRN>\n" +
+                        "        <courseName>" + courseName + "</courseName>\n" +
                         "    </course>";
 
 
@@ -112,24 +112,43 @@ public class ReadWrite {
         fw.close();
     }
 
-
     // Returns a list of every class a user has, searching by B#
-    public static ArrayList<UserCourse> getUserClasses(String bNumber) throws IOException {
+    public static ArrayList<Course> getUserClasses(String bNumber) throws IOException {
+        // userCourse file
         File userCourseFile = new File("UserCourse.xml");
         String userCourse = new String(Files.readAllBytes(Paths.get(userCourseFile.getPath())), StandardCharsets.UTF_8);
+        ArrayList<Course> courseList = new ArrayList<Course>();
 
-        System.out.println("UserCourse string list: " + userCourse);
-        System.out.println("List length: " + userCourse.length());
+        // gets location of crn in list
+        ArrayList<Integer> bNumLocationList = locateStrings(userCourse, bNumber);
 
-        ArrayList<Integer> bNumberLocationList = locateStrings(userCourse, bNumber);
+        if (bNumLocationList != null && bNumLocationList.size() > 0) {
+            // gets usercourse element of classes found
+            ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
+            for (int i = 0; i < bNumLocationList.size(); i++) {
+                // Subtracting 31 takes us to the start tag of the whole UserCourse element, which is what getUserCourseElement demands
+                System.out.println(ReadWrite.getUserCourseElement(bNumLocationList.get(i) - 31).toString());
+                userCourseList.add(ReadWrite.getUserCourseElement(bNumLocationList.get(i) - 31));
+            }
 
-        System.out.println("bNumberLocationList: " + bNumberLocationList);
+            // userFile
+            File courseFile = new File("courseList.xml");
+            String users = new String(Files.readAllBytes(Paths.get(courseFile.getPath())), StandardCharsets.UTF_8);
+            courseList = new ArrayList<Course>();
 
-        ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
-        for (int i = 0; i < bNumberLocationList.size(); i++) {
-            userCourseList.add(ReadWrite.getUserCourseElement(bNumberLocationList.get(i)));
+            //Assumes xml is always in a certain order!
+            for (int i = 0; i < userCourseList.size(); i++) {
+                // index of current users bNum
+                int indexOfCourse = users.indexOf(userCourseList.get(i).getCRN());
+
+                String CRN = userCourseList.get(i).getCRN();
+                String courseName = getValBetweenTags("<courseName>", "</courseName>", users, indexOfCourse);
+
+                courseList.add(new Course(courseName, CRN));
+                System.out.println(courseList.get(i));
+            }
         }
-        return userCourseList;
+        return courseList;
     }
 
 
@@ -138,36 +157,38 @@ public class ReadWrite {
         // userCourse file
         File userCourseFile = new File("UserCourse.xml");
         String userCourse = new String(Files.readAllBytes(Paths.get(userCourseFile.getPath())), StandardCharsets.UTF_8);
+        ArrayList<User> userList =  new ArrayList<User>();;
 
         // gets location of crn in list
         ArrayList<Integer> crnLocationList = locateStrings(userCourse, CRN);
 
-        // gets usercourse element of classes found
-        ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
-        for (int i = 0; i < crnLocationList.size(); i++) {
-            // Subtracting 57 takes us to the start tag of the whole UserCourse element, which is what getUserCourseElement demands
-            userCourseList.add(ReadWrite.getUserCourseElement(crnLocationList.get(i) - 57));
+        if (crnLocationList != null && crnLocationList.size() > 0) {
+            // gets usercourse element of classes found
+            ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
+            for (int i = 0; i < crnLocationList.size(); i++) {
+                // Subtracting 57 takes us to the start tag of the whole UserCourse element, which is what getUserCourseElement demands
+                userCourseList.add(ReadWrite.getUserCourseElement(crnLocationList.get(i) - 57));
+            }
+
+            // userFile
+            File userFile = new File("userList.xml");
+            String users = new String(Files.readAllBytes(Paths.get(userFile.getPath())), StandardCharsets.UTF_8);
+            userList = new ArrayList<User>();
+
+            //Assumes xml is always in a certain order!
+            for (int i = 0; i < userCourseList.size(); i++) {
+                // index of current users bNum
+                int indexOfUser = users.indexOf(userCourseList.get(i).getbNumber());
+
+                String bNumber = userCourseList.get(i).getbNumber();
+                String username = getValBetweenTags("<userName>", "</userName>", users, indexOfUser);
+                String email = getValBetweenTags("<email>", "</email>", users, indexOfUser);
+                String password = getValBetweenTags("<password>", "</password>", users, indexOfUser);
+                boolean isProfessor = Boolean.getBoolean(getValBetweenTags("<isProfessor>", "</isProfessor>", users, indexOfUser));
+
+                userList.add(new User(bNumber, username, password, email, isProfessor));
+            }
         }
-
-        // userFile
-        File userFile = new File("userList.xml");
-        String users = new String(Files.readAllBytes(Paths.get(userFile.getPath())), StandardCharsets.UTF_8);
-        ArrayList<User> userList = new ArrayList<User>();
-
-        //Assumes xml is always in a certain order!
-        for (int i = 0; i < userCourseList.size(); i++) {
-            // index of current users bNum
-            int indexOfUser = users.indexOf(userCourseList.get(i).getbNumber());
-
-            String bNumber= userCourseList.get(i).getbNumber();
-            String username = getValBetweenTags("<userName>","</userName>",users,indexOfUser);
-            String email = getValBetweenTags("<email>","</email>",users,indexOfUser);
-            String password = getValBetweenTags("<password>","</password>",users,indexOfUser);
-            boolean isProfessor = Boolean.getBoolean(getValBetweenTags("<isProfessor>","</isProfessor>",users,indexOfUser));
-
-            userList.add(new User(bNumber,username,password,email,isProfessor));
-        }
-
         return userList;
     }
 
@@ -266,6 +287,32 @@ public class ReadWrite {
         if (!userPassword.equals(password)) return null;
 
         return new User(bNumber,username,password,email,isProfessor);
+    }
+
+    // Leaves a blank line where the UserCourse was, needs to be fixed
+    public static void deleteUserCourse(String bNumber, String CRN) throws IOException {
+        File userCourseFile = new File("userCourse.xml");
+
+        String userCourse = new String(Files.readAllBytes(Paths.get(userCourseFile.getPath())), StandardCharsets.UTF_8);
+
+        // truncates file!
+        FileWriter fw = new FileWriter(userCourseFile);
+
+        // Course to be deleted
+        String userCourseDelete =
+                "    <UserCourse>\n" +
+                        "        <bNumber>" + bNumber + "</bNumber>\n" +
+                        "        <CRN>" + CRN + "</CRN>\n" +
+                        "    </UserCourse>";
+
+        // Start index of where to delete this john
+        int indexOfDeleteCourse = userCourse.indexOf(userCourseDelete);
+
+        // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
+        userCourse = userCourse.substring(0, indexOfDeleteCourse) + userCourse.substring(indexOfDeleteCourse + userCourseDelete.length());
+
+        fw.write(userCourse);
+        fw.close();
     }
 }
 

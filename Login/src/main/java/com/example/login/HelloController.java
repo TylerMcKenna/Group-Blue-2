@@ -82,9 +82,15 @@ public class HelloController {
             lblLoginFailed.setVisible(false);
 
             if (currentUser.isProfessor()) {
-                root = FXMLLoader.load(getClass().getResource("professor-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("professor-view.fxml"));
+                root = loader.load();
+                ProfessorController professorController = loader.getController();
+                professorController.setUser(currentUser);
             } else {
-                root = FXMLLoader.load(getClass().getResource("student-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("professor-view.fxml"));
+                root = loader.load();
+                StudentController studentController = loader.getController();
+                studentController.setUser(currentUser);
             }
             stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
             scene = new Scene(root);

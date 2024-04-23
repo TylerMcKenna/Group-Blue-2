@@ -19,6 +19,8 @@ public class StudentController implements Initializable {
 
     ObservableList<Course> courseList;
 
+    private User currentUser;
+
     @FXML
     private TableColumn<Course, String> CRN;
 
@@ -30,6 +32,10 @@ public class StudentController implements Initializable {
 
     @FXML
     private void coursePressed(MouseEvent event) {
+
+    }
+
+    public void setUser(User user) {
 
     }
 
