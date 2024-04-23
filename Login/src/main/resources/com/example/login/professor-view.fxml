@@ -25,5 +25,8 @@
       <Button fx:id="deleteStudent" layoutX="300.0" layoutY="270.0" mnemonicParsing="false" text="Delete Student" />
       <Label layoutX="411.0" layoutY="239.0" text="B#:" />
       <TextField fx:id="BNUMTextField" layoutX="436.0" layoutY="235.0" prefHeight="25.0" prefWidth="142.0" />
+      <Button fx:id="UpdateButton" layoutX="14.0" layoutY="304.0" onMouseClicked="#updatePressed" mnemonicParsing="false" text="Update Class" />
+      <TextField fx:id="CourseNameReplace" layoutX="110.0" layoutY="304.0" prefHeight="25.0" prefWidth="168.0" />
+      <TextField fx:id="CourseNumReplace" layoutX="110.0" layoutY="339.0" prefHeight="25.0" prefWidth="168.0" />
     </children>
 </AnchorPane>

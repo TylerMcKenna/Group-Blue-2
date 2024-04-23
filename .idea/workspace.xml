@@ -7,8 +7,8 @@
     <list default="true" id="75f902c1-d41f-4ca9-8695-8aa0e245f4af" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/Group-Blue-2.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Group-Blue-2.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Login/src/main/resources/com/example/login/professor-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Login/src/main/resources/com/example/login/professor-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -35,6 +35,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "Vojin-Holt",
+    "last_opened_file_path": "C:/Users/holtk/OneDrive/Documents/GitHub/Group-Blue-2/Login",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -42,6 +43,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.lookFeel",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -54,7 +56,12 @@
       <option name="presentableId" value="Default" />
       <updated>1713294894907</updated>
       <workItem from="1713294896380" duration="531000" />
-      <workItem from="1713819869914" duration="1049000" />
+      <workItem from="1713819869914" duration="1488000" />
+      <workItem from="1713896278840" duration="528000" />
+      <workItem from="1713896866493" duration="47000" />
+      <workItem from="1713896957840" duration="456000" />
+      <workItem from="1713897529225" duration="124000" />
+      <workItem from="1713897668909" duration="214000" />
     </task>
     <servers />
   </component>

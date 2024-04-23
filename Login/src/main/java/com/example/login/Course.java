@@ -21,4 +21,11 @@ public class Course {
         return CRN;
     }
 
+    public void setCourseName(String newName) {
+        courseName = newName;
+    }
+    public void setCRN(String newNum) {
+        CRN = newNum;
+    }
+
 }

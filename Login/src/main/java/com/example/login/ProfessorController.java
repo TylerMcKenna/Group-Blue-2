@@ -5,8 +5,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
@@ -18,8 +20,18 @@ import java.util.ResourceBundle;
 
 public class ProfessorController implements Initializable {
 
+
+
     ObservableList<Course> courseList;
     ObservableList<User> studentList;
+
+
+    @FXML
+    public TextField CourseNumReplace;
+    @FXML
+    public TextField CourseNameReplace;
+    @FXML
+    public Button UpdateButton;
 
     @FXML
     private TableColumn<Course, String> CRN;
@@ -50,6 +62,10 @@ public class ProfessorController implements Initializable {
         {
             studentList = FXCollections.observableArrayList(ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN()));
             studentTable.setItems(studentList);
+
+            CourseNameReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCourseName());
+            CourseNumReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCRN());
+            //Puts the information from the table into the textfields
         }
     }
 
@@ -68,5 +84,14 @@ public class ProfessorController implements Initializable {
         userName.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
 
         courseTable.setItems(courseList);
+    }
+
+
+    public void updatePressed(MouseEvent event) {
+        //courseTable.getSelectionModel().getSelectedItem();
+        System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
+        CourseNameReplace.getText();
+        CourseNumReplace.getText();
+
     }
 }
