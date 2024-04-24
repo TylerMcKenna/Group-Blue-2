@@ -117,7 +117,9 @@ public class ProfessorController implements Initializable {
 
     @FXML
     void addStudent(ActionEvent event) {
+    }
 
+    @FXML
     public void updatePressed(MouseEvent event) {
         //courseTable.getSelectionModel().getSelectedItem();
         System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
