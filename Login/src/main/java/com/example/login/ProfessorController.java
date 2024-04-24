@@ -28,19 +28,20 @@ import java.util.ResourceBundle;
 public class ProfessorController implements Initializable {
 
 
-
     ObservableList<Course> courseList;
     ObservableList<User> studentList;
-  
+
     private User user;
+    private Course selectedCourse;
 
     @FXML
-    private TextField CRNTextField;
+    private TextField CRNTextField, BNUMTextField;
 
-    @FXML
-    private Label lblHello, lblCRNAlert;
     @FXML
     public Label lblSelectCourse;
+
+    @FXML
+    private Label lblHello, lblCRNAlert, lblBNumAlert;
 
     @FXML
     public TextField CourseNumReplace;
@@ -81,15 +82,13 @@ public class ProfessorController implements Initializable {
 
     @FXML
     private void coursePressed(MouseEvent event) throws IOException {
-        if (event.getClickCount() == 2) //Checking double click
-        {
-            studentList = FXCollections.observableArrayList(ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN()));
-            studentTable.setItems(studentList);
+        studentList = FXCollections.observableArrayList(ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN()));
+        studentTable.setItems(studentList);
 
-            CourseNameReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCourseName());
-            CourseNumReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCRN());
-            //Puts the information from the table into the textfields
-        }
+        CourseNameReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCourseName());
+        CourseNumReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCRN());
+        selectedCourse = courseTable.getSelectionModel().getSelectedItem();
+        //Puts the information from the table into the textfields
     }
 
     @Override
@@ -110,6 +109,7 @@ public class ProfessorController implements Initializable {
             ReadWrite.deleteUserCourse(user.getbNumber(), selectedCourse.getCRN());
             ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
             courseTable.setItems(courseList);
+            studentTable.getItems().clear();
         }
     }
 
@@ -129,48 +129,68 @@ public class ProfessorController implements Initializable {
     }
 
     @FXML
-    void deleteStudent(ActionEvent event) {
-
-    }
-
-    @FXML
-    void addStudent(ActionEvent event) {
-    }
-
-
-    @FXML
-    public void updateClicked(MouseEvent event) throws IOException {
-
-        if (courseTable.getSelectionModel().getSelectedItem() == null) {
-            lblSelectCourse.setVisible(true);
-        } else {
-            lblSelectCourse.setVisible(false);
+    void deleteStudent(ActionEvent event) throws IOException {
+        // Professors can lowkey destroy themselves.
+        if (studentTable.getItems().size() > 1 && studentTable.getSelectionModel().getSelectedItem().getbNumber() != user.getbNumber()) {
+            User selectedStudent = studentTable.getSelectionModel().getSelectedItem();
+            Course selectedCourse = courseTable.getSelectionModel().getSelectedItem();
+            ReadWrite.deleteUserCourse(selectedStudent.getbNumber(), selectedCourse.getCRN());
+            studentList = FXCollections.observableArrayList(ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN()));
+            studentTable.setItems(studentList);
+            ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
+            courseTable.setItems(courseList);
         }
-
-        System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
-
-        ArrayList<User> classList = ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN());
-        int length = classList.size();
-        int index = 0;
-
-        do {
-            User infoGetUser = classList.get(index);
-            ReadWrite.addUserCourse(infoGetUser.getbNumber(),CourseNumReplace.getText());
-            ReadWrite.deleteUserCourse(infoGetUser.getbNumber(),courseTable.getSelectionModel().getSelectedItem().getCRN());
-
-            index++;
-            length--;
-
-        } while (length > 0);
-
-        ReadWrite.addCourse(CourseNameReplace.getText(),CourseNumReplace.getText());
-        ReadWrite.deleteCourse(courseTable.getSelectionModel().getSelectedItem().getCourseName(),courseTable.getSelectionModel().getSelectedItem().getCRN());
-
-        ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
-        courseTable.setItems(courseList);
-
-        CourseNameReplace.setText("");
-        CourseNumReplace.setText("");
-
     }
-}
+
+    @FXML
+    void addStudent(ActionEvent event) throws IOException {
+        File userListFile = new File("userList.xml");
+        String users = new String(Files.readAllBytes(Paths.get(userListFile.getPath())), StandardCharsets.UTF_8);
+        int indexOfBNumber = users.indexOf("<bNumber>" + BNUMTextField.getText() + "</bNumber>");
+        if (indexOfBNumber != -1) {
+            lblBNumAlert.setVisible(false);
+            ReadWrite.addUserCourse(BNUMTextField.getText(), selectedCourse.getCRN());
+        } else {
+            lblBNumAlert.setVisible(true);
+        }
+        ObservableList<User> studentList = FXCollections.observableList(ReadWrite.getClassUsers(selectedCourse.getCRN()));
+        studentTable.setItems(studentList);
+    }
+
+
+        public void updateClicked (MouseEvent event) throws IOException {
+
+            if (courseTable.getSelectionModel().getSelectedItem() == null) {
+                lblSelectCourse.setVisible(true);
+            } else {
+                lblSelectCourse.setVisible(false);
+            }
+
+            System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
+
+            ArrayList<User> classList = ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN());
+            int length = classList.size();
+            int index = 0;
+
+            do {
+                User infoGetUser = classList.get(index);
+                ReadWrite.addUserCourse(infoGetUser.getbNumber(), CourseNumReplace.getText());
+                ReadWrite.deleteUserCourse(infoGetUser.getbNumber(), courseTable.getSelectionModel().getSelectedItem().getCRN());
+
+                index++;
+                length--;
+
+            } while (length > 0);
+
+            ReadWrite.addCourse(CourseNameReplace.getText(), CourseNumReplace.getText());
+            ReadWrite.deleteCourse(courseTable.getSelectionModel().getSelectedItem().getCourseName(), courseTable.getSelectionModel().getSelectedItem().getCRN());
+
+            ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
+            courseTable.setItems(courseList);
+
+            CourseNameReplace.setText("");
+            CourseNumReplace.setText("");
+
+        }
+    }
+
