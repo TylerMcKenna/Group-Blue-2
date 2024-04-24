@@ -16,4 +16,12 @@ public class UserCourse {
     public String getCRN() {
         return CRN;
     }
+
+    @Override
+    public String toString() {
+        return "UserCourse{" +
+                "bNumber='" + bNumber + '\'' +
+                ", CRN='" + CRN + '\'' +
+                '}';
+    }
 }

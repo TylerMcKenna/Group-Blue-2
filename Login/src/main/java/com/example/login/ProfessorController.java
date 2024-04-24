@@ -3,8 +3,10 @@ package com.example.login;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -15,6 +17,7 @@ import javafx.scene.input.MouseEvent;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 
@@ -24,7 +27,11 @@ public class ProfessorController implements Initializable {
 
     ObservableList<Course> courseList;
     ObservableList<User> studentList;
+  
+    private User user;
 
+    @FXML
+    private Label lblHello;
 
     @FXML
     public TextField CourseNumReplace;
@@ -56,6 +63,14 @@ public class ProfessorController implements Initializable {
     @FXML
     private TableColumn<User, String> userName;
 
+    public void setUser(User user) throws IOException {
+        this.user = user;
+        lblHello.setText("Hello, " + user.getName());
+
+        ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
+        courseTable.setItems(courseList);
+    }
+
     @FXML
     private void coursePressed(MouseEvent event) throws IOException {
         if (event.getClickCount() == 2) //Checking double click
@@ -71,12 +86,6 @@ public class ProfessorController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        courseList = FXCollections.observableArrayList(
-                new Course("Business Ethics", "00112"),
-                new Course("Programming II", "927461")
-        );
-
-
         CRN.setCellValueFactory(new PropertyValueFactory<Course, String>("CRN"));
         courseName.setCellValueFactory(new PropertyValueFactory<Course, String>("courseName"));
 
@@ -86,12 +95,33 @@ public class ProfessorController implements Initializable {
         courseTable.setItems(courseList);
     }
 
+    @FXML
+    void deleteClass(ActionEvent event) throws IOException {
+        if (courseTable.getItems().size() > 1) {
+            Course selectedCourse = courseTable.getSelectionModel().getSelectedItem();
+            ReadWrite.deleteUserCourse(user.getbNumber(), selectedCourse.getCRN());
+            ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
+            courseTable.setItems(courseList);
+        }
+    }
+
+    @FXML
+    void addClass(ActionEvent event) {
+
+    }
+
+    @FXML
+    void deleteStudent(ActionEvent event) {
+
+    }
+
+    @FXML
+    void addStudent(ActionEvent event) {
 
     public void updatePressed(MouseEvent event) {
         //courseTable.getSelectionModel().getSelectedItem();
         System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
         CourseNameReplace.getText();
         CourseNumReplace.getText();
-
     }
 }
