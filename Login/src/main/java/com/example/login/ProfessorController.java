@@ -153,8 +153,10 @@ public class ProfessorController implements Initializable {
         }
         ObservableList<User> studentList = FXCollections.observableList(ReadWrite.getClassUsers(selectedCourse.getCRN()));
         studentTable.setItems(studentList);
-    }
 
+
+
+    @FXML
     public void updatePressed(MouseEvent event) {
         //courseTable.getSelectionModel().getSelectedItem();
         System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
