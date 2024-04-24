@@ -36,8 +36,8 @@ public class HelloApplication extends Application {
         ReadWrite.addUserCourse("22003242", "654321");
         ReadWrite.addUserCourse("22003242", "000112");
         ReadWrite.addUserCourse("22003242", "927461");
-        ReadWrite.addUserCourse("00116151", "000112");*/
-
+        ReadWrite.addUserCourse("00116151", "000112");
+*/
         /*
         Run these three if no xml files exist!
         ReadWrite.addCourse("Programming 4", "654321");
