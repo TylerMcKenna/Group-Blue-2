@@ -306,10 +306,15 @@ public class ReadWrite {
         // Start index of where to delete this john
         int indexOfDeleteCourse = userCourse.indexOf(userCourseDelete);
 
-        // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
-        userCourse = userCourse.substring(0, indexOfDeleteCourse) + userCourse.substring(indexOfDeleteCourse + userCourseDelete.length());
+        if (indexOfDeleteCourse != -1 && userCourseDelete.length() > 0) {
+            // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
+            userCourse = userCourse.substring(0, indexOfDeleteCourse) + userCourse.substring(indexOfDeleteCourse + userCourseDelete.length());
 
-        fw.write(userCourse);
+            fw.write(userCourse);
+        } else {
+            System.out.println("Could not find userCourse to delete!");
+        }
+
         fw.close();
     }
 
@@ -335,9 +340,9 @@ public class ReadWrite {
             course = course.substring(0, indexOfDeleteCourse) + course.substring(indexOfDeleteCourse + courseDelete.length());
 
             fw.write(course);
-            fw.close();
         } else {
             System.out.println("Could not find course to delete!");
         }
+        fw.close();
     }
 }

@@ -1,11 +1,11 @@
 <userCourseList>
-    <UserCourse>
-        <bNumber>22003242</bNumber>
-        <CRN>654321</CRN>
-    </UserCourse>
+
+
+
+
 
     <UserCourse>
         <bNumber>22003242</bNumber>
-        <CRN>001122</CRN>
+        <CRN>123456</CRN>
     </UserCourse>
 </userCourseList>

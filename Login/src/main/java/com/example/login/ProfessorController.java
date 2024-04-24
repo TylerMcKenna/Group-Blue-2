@@ -48,13 +48,6 @@ public class ProfessorController implements Initializable {
     public Button UpdateButton;
 
     @FXML
-    public TextField CourseNumReplace;
-    @FXML
-    public TextField CourseNameReplace;
-    @FXML
-    public Button UpdateButton;
-
-    @FXML
     private TableColumn<Course, String> CRN;
 
     @FXML
@@ -140,6 +133,8 @@ public class ProfessorController implements Initializable {
 
     @FXML
     void addStudent(ActionEvent event) {
+
+    }
 
     public void updatePressed(MouseEvent event) {
         //courseTable.getSelectionModel().getSelectedItem();
