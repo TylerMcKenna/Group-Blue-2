@@ -42,7 +42,7 @@
       <Button fx:id="UpdateButton" layoutX="14.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#updatePressed" text="Update Class" />
       <TextField fx:id="CourseNameReplace" layoutX="110.0" layoutY="304.0" prefHeight="25.0" prefWidth="168.0" />
       <TextField fx:id="CourseNumReplace" layoutX="110.0" layoutY="339.0" prefHeight="25.0" prefWidth="168.0" />
-      <Label fx:id="lblBNumAlert" layoutX="447.0" layoutY="262.0" text="Please enter a valid bNumber!" visible="false">
+      <Label fx:id="lblBNumAlert" layoutX="435.0" layoutY="262.0" text="Please enter a valid bNumber!" visible="false">
          <font>
             <Font size="11.0" />
          </font>
