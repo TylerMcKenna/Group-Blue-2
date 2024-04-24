@@ -148,10 +148,10 @@ public class ProfessorController implements Initializable {
         String users = new String(Files.readAllBytes(Paths.get(userListFile.getPath())), StandardCharsets.UTF_8);
         int indexOfBNumber = users.indexOf("<bNumber>" + BNUMTextField.getText() + "</bNumber>");
         if (indexOfBNumber != -1) {
-            lblBNumAlert.setVisible(false);
+            //lblBNumAlert.setVisible(false);
             ReadWrite.addUserCourse(BNUMTextField.getText(), selectedCourse.getCRN());
         } else {
-            lblBNumAlert.setVisible(true);
+            //lblBNumAlert.setVisible(true);
         }
         ObservableList<User> studentList = FXCollections.observableList(ReadWrite.getClassUsers(selectedCourse.getCRN()));
         studentTable.setItems(studentList);

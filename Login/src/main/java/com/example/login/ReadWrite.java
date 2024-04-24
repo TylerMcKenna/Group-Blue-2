@@ -335,7 +335,7 @@ public class ReadWrite {
         // Start index of where to delete this john
         int indexOfDeleteCourse = course.indexOf(CRN) - 23;
 
-        if (indexOfDeleteCourse != -1 && courseDelete.length() != 0) {
+        if (indexOfDeleteCourse != -1 && courseDelete.length() > 0) {
             // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
             course = course.substring(0, indexOfDeleteCourse) + course.substring(indexOfDeleteCourse + courseDelete.length());
 

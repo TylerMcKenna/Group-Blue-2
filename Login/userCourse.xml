@@ -1,49 +1,32 @@
 <userCourseList>
+
+
+
+
+
+
     <UserCourse>
         <bNumber>22003242</bNumber>
         <CRN>927461</CRN>
     </UserCourse>
 
-
-
-
-
-
-
-
-
-
+    <UserCourse>
+        <bNumber>00116151</bNumber>
+        <CRN>000110</CRN>
+    </UserCourse>
 
     <UserCourse>
         <bNumber>00116151</bNumber>
+        <CRN>000110</CRN>
+    </UserCourse>
+    <UserCourse>
+        <bNumber>22003242</bNumber>
         <CRN>654321</CRN>
     </UserCourse>
 
 
-
-
-
-
     <UserCourse>
         <bNumber>22003242</bNumber>
-        <CRN>123456</CRN>
-    </UserCourse>
-
-    <UserCourse>
-        <bNumber>22003242</bNumber>
-        <CRN>927461</CRN>
-    </UserCourse>
-
-
-
-
-    <UserCourse>
-        <bNumber>00116151</bNumber>
-        <CRN>123456</CRN>
-    </UserCourse>
-
-    <UserCourse>
-        <bNumber>00116151</bNumber>
-        <CRN>927461</CRN>
+        <CRN>1234567</CRN>
     </UserCourse>
 </userCourseList>
