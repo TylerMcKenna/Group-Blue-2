@@ -127,7 +127,6 @@ public class ReadWrite {
             ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
             for (int i = 0; i < bNumLocationList.size(); i++) {
                 // Subtracting 31 takes us to the start tag of the whole UserCourse element, which is what getUserCourseElement demands
-                System.out.println(ReadWrite.getUserCourseElement(bNumLocationList.get(i) - 31).toString());
                 userCourseList.add(ReadWrite.getUserCourseElement(bNumLocationList.get(i) - 31));
             }
 
@@ -145,7 +144,6 @@ public class ReadWrite {
                 String courseName = getValBetweenTags("<courseName>", "</courseName>", users, indexOfCourse);
 
                 courseList.add(new Course(courseName, CRN));
-                System.out.println(courseList.get(i));
             }
         }
         return courseList;
@@ -315,7 +313,7 @@ public class ReadWrite {
         fw.close();
     }
 
-    public static void deleteCourse(String CRN, String courseName) throws IOException {
+    public static void deleteCourse(String courseName, String CRN) throws IOException {
         File courseListFile = new File("courseList.xml");
 
         String course = new String(Files.readAllBytes(Paths.get(courseListFile.getPath())), StandardCharsets.UTF_8);
@@ -324,19 +322,22 @@ public class ReadWrite {
         FileWriter fw = new FileWriter(courseListFile);
 
         // Course to be deleted
-        String courseDelete =
-                "    <course>\n" +
-                        "        <CRN>" + CRN + "</CRN>\n" +
-                        "        <courseName>" + courseName + "</courseName>\n" +
-                        "    </course>";
+        String courseDelete = "    <course>\n" +
+                "        <CRN>" + CRN + "</CRN>\n" +
+                "        <courseName>" + courseName + "</courseName>\n" +
+                "    </course>";
 
         // Start index of where to delete this john
-        int indexOfDeleteCourse = course.indexOf(courseDelete);
+        int indexOfDeleteCourse = course.indexOf(CRN) - 23;
 
-        // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
-        course = course.substring(0, indexOfDeleteCourse) + course.substring(indexOfDeleteCourse + courseDelete.length());
+        if (indexOfDeleteCourse != -1 && courseDelete.length() != 0) {
+            // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
+            course = course.substring(0, indexOfDeleteCourse) + course.substring(indexOfDeleteCourse + courseDelete.length());
 
-        fw.write(course);
-        fw.close();
+            fw.write(course);
+            fw.close();
+        } else {
+            System.out.println("Could not find course to delete!");
+        }
     }
 }
