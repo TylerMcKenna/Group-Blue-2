@@ -39,6 +39,8 @@ public class ProfessorController implements Initializable {
 
     @FXML
     private Label lblHello, lblCRNAlert;
+    @FXML
+    public Label lblSelectCourse;
 
     @FXML
     public TextField CourseNumReplace;
@@ -137,10 +139,38 @@ public class ProfessorController implements Initializable {
 
 
     @FXML
-    public void updatePressed(MouseEvent event) {
-        //courseTable.getSelectionModel().getSelectedItem();
+    public void updateClicked(MouseEvent event) throws IOException {
+
+        if (courseTable.getSelectionModel().getSelectedItem() == null) {
+            lblSelectCourse.setVisible(true);
+        } else {
+            lblSelectCourse.setVisible(false);
+        }
+
         System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
-        CourseNameReplace.getText();
-        CourseNumReplace.getText();
+
+        ArrayList<User> classList = ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN());
+        int length = classList.size();
+        int index = 0;
+
+        do {
+            User infoGetUser = classList.get(index);
+            ReadWrite.addUserCourse(infoGetUser.getbNumber(),CourseNumReplace.getText());
+            ReadWrite.deleteUserCourse(infoGetUser.getbNumber(),courseTable.getSelectionModel().getSelectedItem().getCRN());
+
+            index++;
+            length--;
+
+        } while (length > 0);
+
+        ReadWrite.addCourse(CourseNameReplace.getText(),CourseNumReplace.getText());
+        ReadWrite.deleteCourse(courseTable.getSelectionModel().getSelectedItem().getCourseName(),courseTable.getSelectionModel().getSelectedItem().getCRN());
+
+        ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
+        courseTable.setItems(courseList);
+
+        CourseNameReplace.setText("");
+        CourseNumReplace.setText("");
+
     }
 }

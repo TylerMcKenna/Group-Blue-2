@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.ProfessorController">
+<AnchorPane prefHeight="470.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.ProfessorController">
     <children>
         <TableView fx:id="courseTable" layoutY="25.0" onMouseClicked="#coursePressed" prefHeight="200.0" prefWidth="294.0">
             <columns>
@@ -20,8 +20,8 @@
         </TableView>
       <Button layoutX="14.0" layoutY="235.0" mnemonicParsing="false" onAction="#addClass" text="Add Class" />
       <Button layoutX="14.0" layoutY="270.0" mnemonicParsing="false" onAction="#deleteClass" text="Delete Class" />
-      <TextField fx:id="CRNTextField" layoutX="145.0" layoutY="235.0" prefHeight="25.0" prefWidth="133.0" />
-      <Label fx:id="lblHello" layoutX="212.0" layoutY="333.0" prefHeight="39.0" prefWidth="187.0" text="Hello, ">
+      <TextField fx:id="CRNTextField" layoutX="151.0" layoutY="235.0" prefHeight="25.0" prefWidth="127.0" />
+      <Label fx:id="lblHello" layoutX="207.0" layoutY="417.0" prefHeight="39.0" prefWidth="187.0" text="Hello, ">
          <font>
             <Font size="27.0" />
          </font></Label>
@@ -35,8 +35,15 @@
             <Font size="11.0" />
          </font>
       </Label>
-      <Button fx:id="UpdateButton" layoutX="14.0" layoutY="304.0" onMouseClicked="#updatePressed" mnemonicParsing="false" text="Update Class" />
-      <TextField fx:id="CourseNameReplace" layoutX="110.0" layoutY="304.0" prefHeight="25.0" prefWidth="168.0" />
-      <TextField fx:id="CourseNumReplace" layoutX="110.0" layoutY="339.0" prefHeight="25.0" prefWidth="168.0" />
+      <Button fx:id="UpdateButton" layoutX="14.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#updateClicked" text="Update Class" />
+      <TextField fx:id="CourseNameReplace" layoutX="197.0" layoutY="304.0" prefHeight="25.0" prefWidth="81.0" />
+      <TextField fx:id="CourseNumReplace" layoutX="151.0" layoutY="339.0" prefHeight="25.0" prefWidth="127.0" />
+      <Label layoutX="118.0" layoutY="343.0" text="CRN:" />
+      <Label layoutX="118.0" layoutY="308.0" text="Course Name:" />
+      <Label fx:id="lblSelectCourse" layoutX="152.0" layoutY="370.0" prefHeight="16.0" prefWidth="127.0" text="Please select a course!" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
     </children>
 </AnchorPane>

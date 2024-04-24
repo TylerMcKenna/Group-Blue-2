@@ -1,15 +1,18 @@
 <courseList>
-    <course>
-        <CRN>123456</CRN>
-        <courseName>Programming 3</courseName>
-    </course>
+    
     <course>
         <CRN>654321</CRN>
         <courseName>Programming 4</courseName>
     </course>
     
-    <course>
+    
+    
+        <course>
         <CRN>927461</CRN>
         <courseName>Programming 2</courseName>
+    </course>
+                 <course>
+        <CRN>123456</CRN>
+        <courseName>Programming 3</courseName>
     </course>
 </courseList>
