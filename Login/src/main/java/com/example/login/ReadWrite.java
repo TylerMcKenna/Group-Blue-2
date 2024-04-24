@@ -314,38 +314,29 @@ public class ReadWrite {
         fw.write(userCourse);
         fw.close();
     }
+
+    public static void deleteCourse(String CRN, String courseName) throws IOException {
+        File courseListFile = new File("courseList.xml");
+
+        String course = new String(Files.readAllBytes(Paths.get(courseListFile.getPath())), StandardCharsets.UTF_8);
+
+        // truncates file!
+        FileWriter fw = new FileWriter(courseListFile);
+
+        // Course to be deleted
+        String courseDelete =
+                "    <course>\n" +
+                        "        <CRN>" + CRN + "</CRN>\n" +
+                        "        <courseName>" + courseName + "</courseName>\n" +
+                        "    </course>";
+
+        // Start index of where to delete this john
+        int indexOfDeleteCourse = course.indexOf(courseDelete);
+
+        // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
+        course = course.substring(0, indexOfDeleteCourse) + course.substring(indexOfDeleteCourse + courseDelete.length());
+
+        fw.write(course);
+        fw.close();
+    }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// base database
-/*
-        ReadWrite.addCourse("Business Ethics", "000112");
-        ReadWrite.addCourse("Programming 2", "927461");
-        ReadWrite.addUser("tyler", "tmckenna@my.okcu.edu", "00116151", "tyler100", false);
-        ReadWrite.addUser("jeff", "jmaxwell@okcu.edu", "22003242", "jeff100", true);
-        ReadWrite.addUserCourse("22003242", "000112");
-        ReadWrite.addUserCourse("22003242", "927461");
-        ReadWrite.addUserCourse("00116151", "000112");
-
-
-
-        System.out.println(ReadWrite.getUserClasses("22003242"));
-*/
