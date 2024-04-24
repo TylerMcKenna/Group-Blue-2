@@ -15,8 +15,12 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -31,7 +35,10 @@ public class ProfessorController implements Initializable {
     private User user;
 
     @FXML
-    private Label lblHello;
+    private TextField CRNTextField;
+
+    @FXML
+    private Label lblHello, lblCRNAlert;
 
     @FXML
     public TextField CourseNumReplace;
@@ -42,7 +49,6 @@ public class ProfessorController implements Initializable {
 
     @FXML
     private TableColumn<Course, String> CRN;
-
 
     @FXML
     private TableColumn<Course, String> courseName;
@@ -106,8 +112,18 @@ public class ProfessorController implements Initializable {
     }
 
     @FXML
-    void addClass(ActionEvent event) {
-
+    void addClass(ActionEvent event) throws IOException {
+        File courseListFile = new File("courseList.xml");
+        String course = new String(Files.readAllBytes(Paths.get(courseListFile.getPath())), StandardCharsets.UTF_8);
+        int indexOfCRN = course.indexOf("<CRN>" + CRNTextField.getText() + "</CRN>");
+        if (indexOfCRN != -1) {
+            lblCRNAlert.setVisible(false);
+            ReadWrite.addUserCourse(user.getbNumber(), CRNTextField.getText());
+        } else {
+            lblCRNAlert.setVisible(true);
+        }
+        ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
+        courseTable.setItems(courseList);
     }
 
     @FXML
@@ -118,6 +134,7 @@ public class ProfessorController implements Initializable {
     @FXML
     void addStudent(ActionEvent event) {
     }
+
 
     @FXML
     public void updatePressed(MouseEvent event) {

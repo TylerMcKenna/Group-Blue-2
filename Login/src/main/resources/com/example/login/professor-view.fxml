@@ -30,6 +30,11 @@
       <Label layoutX="411.0" layoutY="239.0" text="B#:" />
       <TextField fx:id="BNUMTextField" layoutX="436.0" layoutY="235.0" prefHeight="25.0" prefWidth="142.0" />
       <Label layoutX="118.0" layoutY="239.0" text="CRN:" />
+      <Label fx:id="lblCRNAlert" layoutX="147.0" layoutY="262.0" text="Please enter a valid CRN!" visible="false">
+         <font>
+            <Font size="11.0" />
+         </font>
+      </Label>
       <Button fx:id="UpdateButton" layoutX="14.0" layoutY="304.0" onMouseClicked="#updatePressed" mnemonicParsing="false" text="Update Class" />
       <TextField fx:id="CourseNameReplace" layoutX="110.0" layoutY="304.0" prefHeight="25.0" prefWidth="168.0" />
       <TextField fx:id="CourseNumReplace" layoutX="110.0" layoutY="339.0" prefHeight="25.0" prefWidth="168.0" />
