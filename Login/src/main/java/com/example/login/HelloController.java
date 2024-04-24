@@ -87,7 +87,7 @@ public class HelloController {
                 ProfessorController professorController = loader.getController();
                 professorController.setUser(currentUser);
             } else {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("professor-view.fxml"));
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("student-view.fxml"));
                 root = loader.load();
                 StudentController studentController = loader.getController();
                 studentController.setUser(currentUser);

@@ -3,8 +3,8 @@
         <CRN>654321</CRN>
         <courseName>Programming 4</courseName>
     </course>
-     <course>
-        <CRN>1234567</CRN>
-        <courseName>ng 16</courseName>
+        <course>
+        <CRN>123456</CRN>
+        <courseName>Programming 16</courseName>
     </course>
 </courseList>
