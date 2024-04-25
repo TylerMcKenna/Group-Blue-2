@@ -5,7 +5,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
@@ -13,6 +17,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 
 import java.io.File;
@@ -71,6 +76,19 @@ public class ProfessorController implements Initializable {
 
     @FXML
     private TableColumn<User, String> userName;
+
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+        root = loader.load();
+        HelloController helloController = loader.getController();
+        stage = (Stage)((Node)actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public void setUser(User user) throws IOException {
         this.user = user;
@@ -190,5 +208,7 @@ public class ProfessorController implements Initializable {
         CourseNameReplace.setText("");
         CourseNumReplace.setText("");
     }
+
+
 }
 

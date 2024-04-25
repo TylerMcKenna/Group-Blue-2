@@ -5,10 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 
 import java.io.File;
@@ -53,6 +58,18 @@ public class StudentController implements Initializable {
     @FXML
     private TableView<Course> courseTable;
 
+    private Parent root;
+    private Stage stage;
+    private Scene scene;
+    public void logOut(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("hello-view.fxml"));
+        root = loader.load();
+        HelloController helloController = loader.getController();
+        stage = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     @FXML
     private void coursePressed(MouseEvent event) throws IOException {
@@ -135,4 +152,5 @@ public class StudentController implements Initializable {
         CourseNameReplace.setText("");
         CourseNumReplace.setText("");
     }
+
 }

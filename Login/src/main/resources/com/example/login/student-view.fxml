@@ -15,12 +15,9 @@
       <Button layoutX="14.0" layoutY="236.0" mnemonicParsing="false" onAction="#addClass" text="Add Class" />
       <Button layoutX="14.0" layoutY="271.0" mnemonicParsing="false" onAction="#deleteClass" text="Delete Class" />
       <Button fx:id="UpdateButton" layoutX="14.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#updateClicked" text="Update Class" />
-      <Label layoutX="144.0" layoutY="240.0" text="CRN:" />
-      <Label layoutX="144.0" layoutY="345.0" text="CRN:" />
-      <Label layoutX="144.0" layoutY="311.0" text="Course Name:" />
-      <TextField fx:id="CRNTextField" layoutX="182.0" layoutY="236.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField fx:id="CourseNumReplace" layoutX="182.0" layoutY="341.0" prefHeight="25.0" prefWidth="187.0" />
-      <TextField fx:id="CourseNameReplace" layoutX="227.0" layoutY="307.0" prefHeight="25.0" prefWidth="142.0" />
+      <TextField fx:id="CRNTextField" layoutX="141.0" layoutY="236.0" prefHeight="27.0" prefWidth="228.0" promptText="CRN" />
+      <TextField fx:id="CourseNumReplace" layoutX="141.0" layoutY="341.0" prefHeight="27.0" prefWidth="228.0" promptText="CRN" />
+      <TextField fx:id="CourseNameReplace" layoutX="141.0" layoutY="307.0" prefHeight="27.0" prefWidth="228.0" promptText="Course Name" />
       <Label fx:id="lblHello" layoutX="401.0" layoutY="288.0" text="Hello,">
          <font>
             <Font size="18.0" />
@@ -36,5 +33,6 @@
             <Font size="11.0" />
          </font>
       </Label>
+      <Button layoutX="534.0" layoutY="368.0" mnemonicParsing="false" onAction="#logOut" text="Log Out" />
     </children>
 </AnchorPane>
