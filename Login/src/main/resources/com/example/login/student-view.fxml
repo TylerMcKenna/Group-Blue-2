@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.StudentController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@Label.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.StudentController">
     <children>
         <TableView fx:id="courseTable" layoutY="25.0" onMouseClicked="#coursePressed" prefHeight="200.0" prefWidth="600.0">
             <columns>
@@ -14,7 +14,7 @@
         </TableView>
       <Button layoutX="14.0" layoutY="236.0" mnemonicParsing="false" onAction="#addClass" text="Add Class" />
       <Button layoutX="14.0" layoutY="271.0" mnemonicParsing="false" onAction="#deleteClass" text="Delete Class" />
-      <Button fx:id="UpdateButton" layoutX="14.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#updateClicked"  text="Update Class" />
+      <Button fx:id="UpdateButton" layoutX="14.0" layoutY="307.0" mnemonicParsing="false" onMouseClicked="#updateClicked" text="Update Class" />
       <Label layoutX="144.0" layoutY="240.0" text="CRN:" />
       <Label layoutX="144.0" layoutY="345.0" text="CRN:" />
       <Label layoutX="144.0" layoutY="311.0" text="Course Name:" />

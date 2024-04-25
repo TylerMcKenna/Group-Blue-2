@@ -18,12 +18,13 @@ public class HelloApplication extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 400, 500);
-        stage.setTitle("Hello!");
+        stage.setTitle("D3l");
         stage.setScene(scene);
         stage.show();
     }
 
     public static void main(String[] args) throws IOException {
+        //ReadWrite.addUser("jeff", "jmaxwell@okcu.edu", "22003242", "jeff100", true);
         /*
         ReadWrite.addCourse("Programming 3", "123456");
         ReadWrite.addCourse("Programming 4", "654321");

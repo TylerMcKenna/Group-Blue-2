@@ -8,16 +8,23 @@
     </user>
     <user>
         <bNumber>22003242</bNumber>
-        <userName>jeff1</userName>
+        <userName>jeff</userName>
         <email>jmaxwell@okcu.edu</email>
         <password>jeff1000</password>
         <isProfessor>true</isProfessor>
     </user>
     <user>
-        <bNumber>22003242</bNumber>
-        <userName>jeff</userName>
-        <email>jmaxwell@okcu.edu</email>
-        <password>jeff100</password>
-        <isProfessor>true</isProfessor>
+        <bNumber>12345678</bNumber>
+        <userName>vojin</userName>
+        <email>vkovacevix@gmail.com</email>
+        <password>1234</password>
+        <isProfessor>false</isProfessor>
+    </user>
+    <user>
+        <bNumber>098765</bNumber>
+        <userName>jimmy</userName>
+        <email>jim01@gmail.com</email>
+        <password>jimmy1</password>
+        <isProfessor>false</isProfessor>
     </user>
 </userList>
