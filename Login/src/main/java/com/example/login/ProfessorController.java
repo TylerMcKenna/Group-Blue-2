@@ -28,8 +28,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+/*
+    Professor controller for professor-view.fxml that allows for users to
+    add, remove, and update classes and users who are in the selected class.
 
-
+    Made primarily by Tyler and in part by Henri-Junior.
+*/
 public class ProfessorController implements Initializable {
 
 
@@ -157,6 +161,7 @@ public class ProfessorController implements Initializable {
             studentTable.setItems(studentList);
             ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
             courseTable.setItems(courseList);
+            studentTable.getItems().clear();
         }
     }
 
@@ -166,10 +171,10 @@ public class ProfessorController implements Initializable {
         String users = new String(Files.readAllBytes(Paths.get(userListFile.getPath())), StandardCharsets.UTF_8);
         int indexOfBNumber = users.indexOf("<bNumber>" + BNUMTextField.getText() + "</bNumber>");
         if (indexOfBNumber != -1) {
-            //lblBNumAlert.setVisible(false);
+            lblBNumAlert.setVisible(false);
             ReadWrite.addUserCourse(BNUMTextField.getText(), selectedCourse.getCRN());
         } else {
-            //lblBNumAlert.setVisible(true);
+            lblBNumAlert.setVisible(true);
         }
         ObservableList<User> studentList = FXCollections.observableList(ReadWrite.getClassUsers(selectedCourse.getCRN()));
         studentTable.setItems(studentList);
@@ -183,8 +188,6 @@ public class ProfessorController implements Initializable {
         } else {
             lblSelectCourse.setVisible(false);
         }
-
-        System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
 
         ArrayList<User> classList = ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN());
         int length = classList.size();
@@ -208,7 +211,5 @@ public class ProfessorController implements Initializable {
         CourseNameReplace.setText("");
         CourseNumReplace.setText("");
     }
-
-
 }
 

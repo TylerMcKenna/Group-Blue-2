@@ -1,5 +1,9 @@
 package com.example.login;
+/*
+    Basic course class, holds course information for converting to and from xml to a Course object.
 
+    Made by Holt.
+*/
 public class UserCourse {
     private String bNumber;
     private String CRN;

@@ -1,4 +1,9 @@
 package com.example.login;
+/*
+    Basic user class, holds course information for converting to and from xml to a User object.
+
+    Made by Henri-Junior.
+*/
     public class User {
         private String bNumber;
         private String name;

@@ -3,7 +3,11 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<!--
+Fxml view for the student page.
 
+Made by Holt and Vojin.
+-->
 <AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@Label.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.StudentController">
     <children>
         <TableView fx:id="courseTable" layoutY="25.0" onMouseClicked="#coursePressed" prefHeight="200.0" prefWidth="600.0">

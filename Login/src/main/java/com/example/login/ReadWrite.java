@@ -7,7 +7,14 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+/*
+    The IO class for the entire project, handles deleting and adding to the
+    three main xml files courseList.xml, userCourse.xml, and userList.xml.
+    Updating is actually done by deleting an entry and re-adding it to the
+    xml files with the new data (Holt's idea). The class is entirely static.
 
+    Made by Tyler :)
+*/
 public class ReadWrite {
     // Creates an entry in the user table "userList.xml"
     public static void addUser(String username, String email, String bNumber, String password, boolean isProf) throws IOException {
@@ -47,7 +54,6 @@ public class ReadWrite {
     // Creates an entry in the course table "courseList.xml"
     public static void addCourse(String courseName, String CRN) throws IOException {
         // Creates sets courseList.xml to the File courseListFile and creates courseList.xml if it doesn't exist
-        // ending tag so we can subtract correct value later
         String endingTag = "</courseList>";
         File courseListFile = new File("courseList.xml");
 
@@ -161,7 +167,7 @@ public class ReadWrite {
         ArrayList<Integer> crnLocationList = locateStrings(userCourse, CRN);
 
         if (crnLocationList != null && crnLocationList.size() > 0) {
-            // gets usercourse element of classes found
+            // gets userCourse element of classes found
             ArrayList<UserCourse> userCourseList = new ArrayList<UserCourse>();
             for (int i = 0; i < crnLocationList.size(); i++) {
                 // Subtracting 57 takes us to the start tag of the whole UserCourse element, which is what getUserCourseElement demands
@@ -193,7 +199,6 @@ public class ReadWrite {
 
     // Finds all instances of the specified "locateString" within the "searchString" and returns their indexes
     // In my use "searchString" should be my entire XML file, and locateString should be the XML element content I want to find
-    // W O R K S
     private static ArrayList<Integer> locateStrings(String searchString, String locateString) {
         int currentIndex = 0;
         ArrayList<Integer> indexList = new ArrayList<Integer>();
@@ -214,10 +219,7 @@ public class ReadWrite {
         }
     }
 
-    // Should be passed the index where the UserCourse start tag begins, <userCourseList> will parse the xml element based off of this
-
-    // W O R K S assuming actually passed correct index (where the UserCourse start tag begins)
-
+    // Should be passed the index where the UserCourse start tag begins, <userCourseList> will parse the xml element based off of this.
     // Functionality could definitely be turned more abstract; Perhaps one method to get users, courses, and userCourses.
     private static UserCourse getUserCourseElement(Integer index) throws IOException {
         String endingTag = "</UserCourse>";
@@ -252,7 +254,8 @@ public class ReadWrite {
         return new UserCourse(bNumber, CRN);
     }
 
-    public static String getValBetweenTags(String tag, String endTag, String fileToLocateVal, int fromIndex) {
+    // Gets value between two xml tags
+    private static String getValBetweenTags(String tag, String endTag, String fileToLocateVal, int fromIndex) {
         int indexOfTag = fileToLocateVal.indexOf(tag, fromIndex);;
         int indexOfEndTag = fileToLocateVal.indexOf(endTag, fromIndex);
 
@@ -278,7 +281,6 @@ public class ReadWrite {
 
         String bNumber = getValBetweenTags("<bNumber>","</bNumber>",users,indexOfUserStart);
         String username = getValBetweenTags("<userName>","</userName>",users,indexOfUserStart);
-        String userEmail = getValBetweenTags("<email>","</email>",users,indexOfUserStart);
         String userPassword = getValBetweenTags("<password>","</password>",users,indexOfUserStart);
         boolean isProfessor = Boolean.parseBoolean(getValBetweenTags("<isProfessor>","</isProfessor>",users,indexOfUserStart));
 
@@ -287,7 +289,7 @@ public class ReadWrite {
         return new User(bNumber,username,password,email,isProfessor);
     }
 
-    // Leaves a blank line where the UserCourse was, needs to be fixed
+    // deletes a userCourse from userCourse.xml
     public static void deleteUserCourse(String bNumber, String CRN) throws IOException {
         File userCourseFile = new File("userCourse.xml");
 
@@ -303,8 +305,8 @@ public class ReadWrite {
                         "        <CRN>" + CRN + "</CRN>\n" +
                         "    </UserCourse>";
 
-        // Start index of where to delete this john
-        int indexOfDeleteCourse = userCourse.indexOf(userCourseDelete);
+        // Start index of where to delete this userCourse
+        int indexOfDeleteCourse = userCourse.indexOf(bNumber) - 31;
 
         if (indexOfDeleteCourse != -1 && userCourseDelete.length() > 0) {
             // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
@@ -318,6 +320,7 @@ public class ReadWrite {
         fw.close();
     }
 
+    // deletes a course from courseList.xml
     public static void deleteCourse(String courseName, String CRN) throws IOException {
         File courseListFile = new File("courseList.xml");
 
@@ -332,11 +335,11 @@ public class ReadWrite {
                 "        <courseName>" + courseName + "</courseName>\n" +
                 "    </course>";
 
-        // Start index of where to delete this john
+        // Start index of where to delete this course
         int indexOfDeleteCourse = course.indexOf(CRN) - 23;
 
         if (indexOfDeleteCourse != -1 && courseDelete.length() > 0) {
-            // Appends the userCourse xml list from (0 - the new user) with the userCourse xml file from (the new user + new user length)
+            // Appends the course xml list from (0 - the new course) with the course xml file from (the new course + new course length)
             course = course.substring(0, indexOfDeleteCourse) + course.substring(indexOfDeleteCourse + courseDelete.length());
 
             fw.write(course);

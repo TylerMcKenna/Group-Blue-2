@@ -1,7 +1,5 @@
 package com.example.login;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.SerializationFeature;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,26 +13,23 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import javafx.stage.Stage;
 
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.security.NoSuchAlgorithmException;
 import java.util.*;
+/*
+    Login controller for hello-view.fxml, a page allowing for users to login and sign up.
 
+    Made by Tyler.
+*/
 public class HelloController {
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    private static final String UNICODE_FORMAT = "UTF-8";
-    private static ArrayList<User2> userList = new ArrayList<User2>();
+    private static ArrayList<UserArchived> userList = new ArrayList<UserArchived>();
     @FXML
-    private Label lblWelcome, lblLoginFailed;
+    private Label lblAccountCreated, lblLoginFailed;
 
     @FXML
     private PasswordField passFieldSU, passFieldSI;
@@ -101,5 +96,6 @@ public class HelloController {
 
     public void signUpPressed(ActionEvent actionEvent) throws IOException {
         ReadWrite.addUser(txtUsernameSU.getText(), txtEmailSU.getText(), txtBNum.getText(), passFieldSU.getText(), chkProfessor.isPressed());
+        lblAccountCreated.setVisible(true);
     }
 }

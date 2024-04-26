@@ -8,19 +8,24 @@ import javax.crypto.spec.SecretKeySpec;
 import org.mindrot.jbcrypt.BCrypt;
 
 import java.util.Base64;
+/*
+ Class from original login project by Tyler, contains unused hashing and encrypting functionality.
+ Given more time, would implement this version of the User class into the project.
 
-public class User2 {
+ Made by Tyler.
+*/
+public class UserArchived {
     public String hashedPassword, salt;
     public byte[] encryptedUsername, encryptedEmail;
     public String key;
     private static final String UNICODE_FORMAT = "UTF-8";
 
     // Used by json mapper to convert json to an object
-    public User2() {
+    public UserArchived() {
     }
 
     // Used to make new users in json list
-    public User2(String username, String password, String email) {
+    public UserArchived(String username, String password, String email) {
         try {
             key = generateKey("AES");
             Cipher cipher = Cipher.getInstance("AES");
@@ -36,7 +41,7 @@ public class User2 {
     }
 
     // Used by json mapper to convert json to an object
-    public User2(String key, String username, String password, String email, String salt) {
+    public UserArchived(String key, String username, String password, String email, String salt) {
         try {
             this.key = key;
             this.encryptedUsername = username.getBytes(UNICODE_FORMAT);
@@ -133,7 +138,7 @@ public class User2 {
 
     @Override
     public String toString() {
-        return "User2{" +
+        return "UserArchived{" +
                 "encryptedUsername='" + encryptedUsername + '\'' +
                 ", hashedPassword='" + hashedPassword + '\'' +
                 ", encryptedEmail='" + encryptedEmail + '\'' +

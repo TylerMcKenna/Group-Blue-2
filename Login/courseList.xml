@@ -1,18 +1,18 @@
 <courseList>
-      <course>
-        <CRN>654321</CRN>
-        <courseName>Intro to Bacon</courseName>
+    <course>
+        <CRN>20085</CRN>
+        <courseName>Programming I</courseName>
     </course>
     <course>
-        <CRN>111111</CRN>
+        <CRN>20086</CRN>
+        <courseName>Programming II</courseName>
+    </course>
+    <course>
+        <CRN>10035</CRN>
         <courseName>Business Ethics</courseName>
     </course>
-     <course>
-        <CRN>123456</CRN>
-        <courseName>Programming 10</courseName>
-    </course>
-     <course>
-        <CRN>0000011</CRN>
-        <courseName>Programming 16</courseName>
+    <course>
+        <CRN>10011</CRN>
+        <courseName>Composition I</courseName>
     </course>
 </courseList>

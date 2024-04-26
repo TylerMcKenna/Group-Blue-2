@@ -1,3 +1,9 @@
+/*
+Css sheet for all three pages: hello-view.fxml, professor-view.fxml, and student-view.fxml
+Aside from #anchorpane, the #id selectors are used for the login page exclusively.
+
+Made by Tyler.
+ */
 .label {
     -fx-text-fill: #72A0C1;
 }

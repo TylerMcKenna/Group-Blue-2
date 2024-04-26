@@ -24,8 +24,12 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+/*
+    Student controller for student-view.fxml that is a more basic version of the professor page, allowing for users
+    to add, remove, and update classes, but not to do anything regarding the users in a class.
 
-
+    Made primarily by Holt and Vojin.
+*/
 public class StudentController implements Initializable {
 
     @FXML
@@ -44,8 +48,6 @@ public class StudentController implements Initializable {
     public Button UpdateButton;
 
     ObservableList<Course> courseList;
-    private User currentUser;
-    ObservableList<User> studentList;
     private User user;
     private Course selectedCourse;
 
@@ -72,9 +74,7 @@ public class StudentController implements Initializable {
     }
 
     @FXML
-    private void coursePressed(MouseEvent event) throws IOException {
-        studentList = FXCollections.observableArrayList(ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN()));
-
+    private void coursePressed(MouseEvent event) {
         CourseNameReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCourseName());
         CourseNumReplace.setText(courseTable.getSelectionModel().getSelectedItem().getCRN());
         selectedCourse = courseTable.getSelectionModel().getSelectedItem();
@@ -114,7 +114,7 @@ public class StudentController implements Initializable {
 
     public void deleteClass(ActionEvent actionEvent) throws IOException {
         if (courseTable.getItems().size() > 1) {
-            Course selectedCourse = courseTable.getSelectionModel().getSelectedItem();
+            selectedCourse = courseTable.getSelectionModel().getSelectedItem();
             ReadWrite.deleteUserCourse(user.getbNumber(), selectedCourse.getCRN());
             ObservableList<Course> courseList = FXCollections.observableList(ReadWrite.getUserClasses(user.getbNumber()));
             courseTable.setItems(courseList);
@@ -127,8 +127,6 @@ public class StudentController implements Initializable {
         } else {
             lblSelectCourse.setVisible(false);
         }
-
-        System.out.println(courseTable.getSelectionModel().getSelectedItem().getCRN());
 
         ArrayList<User> classList = ReadWrite.getClassUsers(courseTable.getSelectionModel().getSelectedItem().getCRN());
         int length = classList.size();

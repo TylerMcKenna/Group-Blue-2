@@ -1,7 +1,9 @@
 package com.example.login;
+/*
+    Basic course class, holds course information for converting to and from xml to a Course object.
 
-import java.util.ArrayList;
-
+    Made by Holt.
+*/
 public class Course {
 
     private String courseName;
